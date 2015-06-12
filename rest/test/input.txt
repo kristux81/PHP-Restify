@@ -1,0 +1,1 @@
+sf_case_field_name=case_status,changed_at=1,changed_by=rohit,old_value=,new_value=in_rnd,status=in_dev,sf_case_number=123456,vone_defect_id=78910,user_notified=1,user_notifed_at=1

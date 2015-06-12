@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<result><sf_case_field_name>case_status</sf_case_field_name><changed_at>0000-00-00 00:00:00</changed_at><changed_by>krishna</changed_by><old_value/><new_value>in_rnd</new_value><status>in_dev</status><sf_case_number>123456</sf_case_number><vone_defect_id>78910</vone_defect_id><user_notified>1</user_notified><user_notifed_at>0000-00-00 00:00:00</user_notifed_at></result>
