@@ -12,13 +12,13 @@ $g_db_type = 'mysqli' ;
 $g_hostname = 'localhost';
 $g_db_username = 'root';
 $g_db_password = '';
-$g_database_name = '';
+$g_database_name = 'rest';
 
 /**
  * table names
  * @global array $g_db_table
  */
-$g_db_table['salesforce_versionone_update']	  = 'salesforce_versionone_update';
+$g_db_table['sfdc_vone_update']	  = 'sfdc_vone_update';
 
 
 /**************************

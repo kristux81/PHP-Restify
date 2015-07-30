@@ -1,53 +1,76 @@
 <?php
-require_once ('core.php');
+require_once ('path.php');
+require_once ('constants.php');
+require_once ('config.php');
+require_once ('logging_api.php');
+require_once ('database_api.php');
 
 /**
  * Initialize rest adapter
  */
-include_once ( 'RestController.php' );
+include_once ('RestController.php');
 $restAdapter = new RestController ();
+
+/**
+ * Additional inline methods to transform/map/modify data
+ * before being presented to database adapter
+ */
+include_once ('Interceptor.php');
 
 /**
  * Initialize Database adapter
  */
-include_once ( 'DbAdapter.php' );
-$db_adapter = new DatabaseAdapter() ;
+include_once ('DbAdapter.php');
+$db_adapter = new DatabaseAdapter ();
 
 /**
  * Add models here
  */
 include_once ('Model.php');
 include_once ('sfdc_vone_update.php');
+$tableHandle = new SfdcVOneUpdate ();
 
 /**
  * register routes => methods here
  */
 
-/* 
- * Urls : http://localhost/sample/rest/api/sfdcvone
- * 		  http://localhost/sample/rest/api/sfdcvone/{id}
- * 		  http://localhost/sample/rest/api/sfdcvone/search/{where query}
- */
-$restAdapter->addRoute ( 'sfdcvone', 'GET', "get_sfdc_v1_data" );
+$resource = 'sfdcvone' ;
 
 /*
- * Url : http://localhost/sample/rest/api/sfdcvone
+ * Urls : http://localhost/ccb/rest/sfdcvone
+ * http://localhost/ccb/rest/sfdcvone/{id}
+ * http://localhost/ccb/rest/sfdcvone/search/{where query}
  */
-$restAdapter->addRoute ( 'sfdcvone', 'POST', "set_sfdc_v1_data" );
+$restAdapter->addWire ( $resource, 'GET', array (
+		$tableHandle,
+		'get' 
+) );
 
 /*
- * Url : http://localhost/sample/rest/api/sfdcvone/{id}
+ * Url : http://localhost/ccb/rest/sfdcvone
  */
-$restAdapter->addRoute ( 'sfdcvone', 'PUT', "update_sfdc_v1_data" );
+$restAdapter->addWire ( $resource, 'POST', array (
+		$tableHandle,
+		'insert' 
+) );
 
 /*
- * Url : http://localhost/sample/rest/api/sfdcvone/{id}
+ * Url : http://localhost/ccb/rest/sfdcvone/{id}
  */
-$restAdapter->addRoute ( 'sfdcvone', 'DELETE', "delete_sfdc_v1_data" );
+$restAdapter->addWire ( $resource, 'PUT', array (
+		$tableHandle,
+		'update' 
+) );
 
+/*
+ * Url : http://localhost/ccb/rest/sfdcvone/{id}
+ */
+$restAdapter->addWire ( $resource, 'DELETE', array (
+		$tableHandle,
+		'delete' 
+) );
 
-
-// TBD : Regex based multiple {id:[0-9]+}  GET, PUT, DELETE
+// TBD : Regex based multiple {id:[0-9]+} GET, PUT, DELETE
 
 /**
  * Handle Rest Request ( in the end )

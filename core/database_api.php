@@ -1,9 +1,5 @@
 <?php
 
-/** Use PHP adodb library with this */
-/* File Taken from Mantis BT Source code */
-
-
 set_time_limit('6000'); 
 
 /**
@@ -23,11 +19,6 @@ $g_queries_array = array();
  	 */
 $g_db_connected = false;
 
-/**
- * Store whether to log queries ( used for show_queries_count/query list)
- * @global bool $g_db_log_queries
- */
-$g_db_log_queries = OFF;
 
 /**
  * set adodb fetch mode

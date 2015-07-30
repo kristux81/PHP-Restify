@@ -18,22 +18,22 @@ GET :
 (1) "Accept : */*" :
 ---------------------
 
-curl http://localhost/sample/rest/api/sfdcvone
-curl http://localhost/sample/rest/api/sfdcvone/{id}
+curl http://localhost/rest/sfdcvone
+curl http://localhost/rest/sfdcvone/{id}
 
 
 (2) "Accept : application/json" :
 ----------------------------------
 
-curl -H "Accept: application/json" http://localhost/sample/rest/api/sfdcvone
-curl -H "Accept: application/json" http://localhost/sample/rest/api/sfdcvone/{id}
+curl -H "Accept: application/json" http://localhost/rest/sfdcvone
+curl -H "Accept: application/json" http://localhost/rest/sfdcvone/{id}
 
 
 (3) "Accept : text/xml" :
 --------------------------
 
-curl -H "Accept: text/xml" http://localhost/sample/rest/api/sfdcvone
-curl -H "Accept: text/xml" http://localhost/sample/rest/api/sfdcvone/{id}
+curl -H "Accept: text/xml" http://localhost/rest/sfdcvone
+curl -H "Accept: text/xml" http://localhost/rest/sfdcvone/{id}
 
 
 
@@ -51,55 +51,55 @@ POST :
 (1) "Content-type : application/x-www-form-urlencoded" and "Accept : */*" :
 ----------------------------------------------------------------------------
 
-curl -X POST -d "@{path to file input.txt}" http://localhost/sample/rest/api/sfdcvone
+curl -X POST -d "@{path to file input.txt}" http://localhost/rest/sfdcvone
 
 
 (2) "Content-type : application/x-www-form-urlencoded" and "Accept : application/json" :
 -----------------------------------------------------------------------------------------
 
-curl -X POST -H "Accept: application/json" -d "@{path to file input.txt}" http://localhost/sample/rest/api/sfdcvone
+curl -X POST -H "Accept: application/json" -d "@{path to file input.txt}" http://localhost/rest/sfdcvone
 
 
 (3) "Content-type : application/x-www-form-urlencoded" and "Accept : text/xml" :
 ---------------------------------------------------------------------------------
 
-curl -X POST -H "Accept: text/xml" -d "@{path to file input.txt}" http://localhost/sample/rest/api/sfdcvone
+curl -X POST -H "Accept: text/xml" -d "@{path to file input.txt}" http://localhost/rest/sfdcvone
 
 
 (4) "Content-type : application/json" and "Accept : */*" :
 -----------------------------------------------------------
 
-curl -X POST -H "Content-type: application/json" -d "@{path to file input.json}" http://localhost/sample/rest/api/sfdcvone
+curl -X POST -H "Content-type: application/json" -d "@{path to file input.json}" http://localhost/rest/sfdcvone
 
 
 (5) "Content-type : application/json" and "Accept : application/json" :
 ------------------------------------------------------------------------
 
-curl -X POST -H "Accept: application/json" -H "Content-type: application/json" -d "@{path to file input.json}" http://localhost/sample/rest/api/sfdcvone
+curl -X POST -H "Accept: application/json" -H "Content-type: application/json" -d "@{path to file input.json}" http://localhost/rest/sfdcvone
 
 
 (6) "Content-type : application/json" and "Accept : text/xml" :
 ----------------------------------------------------------------
 
-curl -X POST -H "Accept: text/xml" -H "Content-type: application/json" -d "@{path to file input.json}" http://localhost/sample/rest/api/sfdcvone
+curl -X POST -H "Accept: text/xml" -H "Content-type: application/json" -d "@{path to file input.json}" http://localhost/rest/sfdcvone
 
 
 (7) "Content-type : text/xml" and "Accept : */*" :
 ---------------------------------------------------
 
-curl -X POST -H "Content-type: text/xml" -d "@{path to file input.xml}" http://localhost/sample/rest/api/sfdcvone
+curl -X POST -H "Content-type: text/xml" -d "@{path to file input.xml}" http://localhost/rest/sfdcvone
 
 
 (8) "Content-type : text/xml" and "Accept : application/json" :
 ----------------------------------------------------------------
 
-curl -X POST -H "Accept: application/json" -H "Content-type: application/json" -d "@{path to file input.xml}" http://localhost/sample/rest/api/sfdcvone
+curl -X POST -H "Accept: application/json" -H "Content-type: application/json" -d "@{path to file input.xml}" http://localhost/rest/sfdcvone
 
 
 (9) "Content-type : text/xml" and "Accept : text/xml" :
 --------------------------------------------------------
 
-curl -X POST -H "Accept: text/xml" -H "Content-type: application/json" -d "@{path to file input.xml}" http://localhost/sample/rest/api/sfdcvone
+curl -X POST -H "Accept: text/xml" -H "Content-type: application/json" -d "@{path to file input.xml}" http://localhost/rest/sfdcvone
 
 
 
@@ -117,19 +117,19 @@ PUT :
 (1) "Content-type : application/x-www-form-urlencoded" :
 ---------------------------------------------------------
 
-curl -X PUT -d "changed_by=krishna,old_value=in_sustaining" http://localhost/sample/rest/api/sfdcvone/{id}
+curl -X PUT -d "changed_by=krishna,old_value=in_sustaining" http://localhost/rest/sfdcvone/{id}
 
 
 (2) "Content-type : application/json" :
 ----------------------------------------
 
-curl -X PUT -H "Content-type: application/json" -d "{\"changed_by\":\"krishna\",\"old_value\":\"in_sustaining\"}" http://localhost/sample/rest/api/sfdcvone/{id}
+curl -X PUT -H "Content-type: application/json" -d "{\"changed_by\":\"krishna\",\"old_value\":\"in_sustaining\"}" http://localhost/rest/sfdcvone/{id}
 
 
 (3) "Content-type : text/xml":
 -------------------------------
 
-curl -X PUT -H "Content-type: text/xml" -d "<?xml version=\"1.0\" ?><result><changed_by>krishna</changed_by><old_value>in_sustaining</old_value></result>" http://localhost/sample/rest/api/sfdcvone/{id}
+curl -X PUT -H "Content-type: text/xml" -d "<?xml version=\"1.0\" ?><result><changed_by>krishna</changed_by><old_value>in_sustaining</old_value></result>" http://localhost/rest/sfdcvone/{id}
 
 
 
@@ -137,7 +137,7 @@ curl -X PUT -H "Content-type: text/xml" -d "<?xml version=\"1.0\" ?><result><cha
 DELETE :
 ---------
 
-curl -X DELETE http://localhost/sample/rest/api/sfdcvone/{id}
+curl -X DELETE http://localhost/rest/sfdcvone/{id}
 
 
 

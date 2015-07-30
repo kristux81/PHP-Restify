@@ -13,6 +13,9 @@ class RestController {
 	private $http_content_type = array ();
 	private $rest_url;
 	
+	// values are array_keys of self::$content
+	private $default_accept_type = "json";
+	
 	private $debug = false ;
 
 	static $verbs = array("GET", "POST", "PUT", "DELETE");
@@ -20,20 +23,23 @@ class RestController {
 	static $routes = array ( "GET" => array('isalive' => "alive"),
 	                        );
 	
-	static $content = array (
+	static $content = array(
 			'json' => array (
 					"application/json",
-					"text/json"
+					"text/json" 
 			),
 			'xml' => array (
 					"application/xml",
 					"application/xhtml+xml",
-					"text/xml"
+					"text/xml" 
 			),
 			'text' => array (
 					"text/plain",
-					"text/html"
-			)
+					"text/html" 
+			),
+			'all' => array (
+					"*/*" 
+			),
 	);
 
 
@@ -45,8 +51,8 @@ class RestController {
 		//debug mode
 		//$this->debug = true ;
 		
-		// var_dump($_SERVER);
-		// var_dump($_REQUEST);
+		//var_dump($_SERVER);
+		//var_dump($_REQUEST);
 		
 		$this->rest_url = rtrim ( urldecode ( $_REQUEST ['q'] ), "\/" );
 		$this->http_method = $_SERVER ['REQUEST_METHOD'];
@@ -54,13 +60,16 @@ class RestController {
 		$this->setAccept();
 	}
 
+	function __destruct(){
+		log_event(LOG_REST, "Resource Served : " . $this->rest_url );
+	}
+	
 	private function setAccept(){
-		
 		$s_accept = $_SERVER ['HTTP_ACCEPT'];
 		$a_accept = preg_split ( "/,/", $s_accept );
 		
 		foreach ( $a_accept as $accept ) {
-		
+			
 			$pos = strpos ( $accept, ";" );
 			if ($pos !== false) {
 				$this->http_accept_type [] = substr ( $accept, 0, $pos );
@@ -71,15 +80,16 @@ class RestController {
 		
 		if (is_array ( $this->http_accept_type )) {
 			$content_types = array_values ( self::$content );
-			//$this->http_accept_type = array_intersect ( $this->http_accept_type, $content_types );
+			// $this->http_accept_type = array_intersect ( $this->http_accept_type, $content_types );
 		}
 		
 		// default to json if accept not set
-		if (count ( $this->http_accept_type ) == 0) {
-			$this->http_accept_type [] = self::$content ['json'] [0];
+		if (count ( $this->http_accept_type ) == 0 || 
+				(count ( $this->http_accept_type ) > 0 && $this->http_accept_type [0] == self::$content ['all'][0])) {
+			$this->http_accept_type [0] = self::$content [$this->default_accept_type] [0];
 		}
 		
-		//var_dump($this->http_accept_type);
+		//var_dump ( $this->http_accept_type );
 	}
 	
 	private function setContentType(){
@@ -169,21 +179,17 @@ class RestController {
 	
 	
 	/** 
-	 * Add routes
+	 * Add wiring
 	 * 
 	 * @param $resource : path url
 	 * @param $verb : HTTP REQUEST_METHOD (GET,POST,PUT,DELETE)
 	 * @param $method : landing method
 	 */
-	public function addRoute($resource, $verb, $method) {
+	public function addWire($resource, $verb, $method) {
 		
 		if(in_array($verb, self::$verbs)){
 			self::$routes [$verb][$resource] = $method;
 		}
-	}
-
-	public function addRoutes($resources = array()) {
-		self::$routes = array_merge ( self::$routes, $resources );
 	}
 
     /**
@@ -214,7 +220,7 @@ class RestController {
 			}
 		}
 		if( $this->debug ){
-			echo print_r( $resource_lIst, true), " ";
+			echo "[[[[ " , print_r( $resource_lIst, true), " ]]]] ";
 		}
 	
 		$resource_url = $resource_lIst [0];
@@ -242,7 +248,7 @@ class RestController {
 			}
 				
 			if( $this->debug ){
-				echo print_r( $args, true), " ", $callback , " " ;
+				echo "[[[[ " , print_r( $args, true), " ]]]] [[[[ " , print_r( $callback, true) , " ]]]] ";
 			}
 				
 			call_user_func_array ( $callback, $args );
@@ -261,7 +267,7 @@ class RestController {
 		
 		$body = file_get_contents ( 'php://input' );
 		if ($this->debug) {
-			echo print_r ( $body, true ), " ";
+			echo "[[[[ " , print_r ( $body, true ), " ]]]] ";
 		}
 		
 		// empty body not allowed
@@ -287,7 +293,7 @@ class RestController {
 		}
 		
 		if ($this->debug) {
-			echo print_r ( $output, true ), " ";
+			echo "[[[[ " , print_r ( $output, true ), " ]]]] ";
 		}
 
 		return $output;

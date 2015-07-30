@@ -13,6 +13,7 @@ define( 'NOTICE', E_USER_NOTICE );
 define( 'LOG_NONE',     0 );  # no logging
 define( 'LOG_MIN',      1 );  # minimum
 define( 'LOG_AJAX',     2 );  # logging for AJAX / XmlHttpRequests
-define( 'LOG_LDAP',     4 );  # logging for ldap
-define( 'LOG_DATABASE', 8 );  # logging for database
+define( 'LOG_REST',     3 );  # logging for REST API
+define( 'LOG_LDAP',     4  );  # logging for ldap
+define( 'LOG_DATABASE', 5 );  # logging for database
 

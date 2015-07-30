@@ -1,10 +1,11 @@
 <?php
 
 $g_log_levels = array(
-	LOG_MIN => 'min',
-	LOG_AJAX => 'ajax',
-	LOG_LDAP => 'ldap',
-	LOG_DATABASE => 'database',
+	LOG_MIN => '',
+	LOG_AJAX => 'AJAX',
+	LOG_REST => 'REST',
+	LOG_LDAP => 'LDAP',
+	LOG_DATABASE => 'DB',
 );
 
 function log_event( $p_level, $p_msg ) {
@@ -13,7 +14,7 @@ function log_event( $p_level, $p_msg ) {
 	       $g_log_destination,
 		   $g_global_log_level;
 
-	if ( 0 == ( $g_global_log_level & $p_level ) ) {
+	if ( $p_level > $g_global_log_level ) {
 		return;
 	}
 
