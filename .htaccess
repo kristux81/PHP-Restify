@@ -1,5 +1,6 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
+    RewriteBase /
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule rest/(.*)$ http://%{HTTP_HOST}/restrouter.php?q=$1 [QSA,NC]
+    RewriteRule rest/(.*)$ http://%{HTTP_HOST}/restrouter.php?q=$1 [QSA,NC,L]
 </IfModule>
